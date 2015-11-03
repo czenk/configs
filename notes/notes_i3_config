@@ -1,3 +1,11 @@
+---
+- Visual Copy and Paste Buffer
+- Notification history
+- Get Audio controls to work propperly
+- Write article (see bottom of file)
+---
+
+
 # $ sudo apt-get install i3 i3status i3lock compton nitrogen
 # get Font Awesome and copy it to /usr/share/fonts/font-awesome-x.x.x
 
@@ -37,6 +45,10 @@
 # twmn: https://github.com/sboli/twmn
 
 ----
+# lxappearance
+#
+# http://www.gusnan.se/devilspie2/
+----
 
 # Window border style: normal: border normal, with window title bar;
 # none: no border or window title bar; 1pixel: 1 pixel border.
@@ -63,5 +75,12 @@ bindsym $mod+F2 mode "$mode_system"
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ -q
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- -q
 bindsym XF86AudioMute exec amixer -q set Master toggle
+
+-------------
+
+Why not use a screen multiplexer? I do - but I want to evade the challenges of running nested tmux sessions. Whilst this may not be an issue for developers it can be a massive cuplrit for sysops.
+
+I also know what others are thinking. You’re thinking, “Are you not effectively just putting together an IDE?”. It’s a fair question. We are effectively embedding an IDE into the background, however the components of this IDE are highly decoupled. While one terminal may be editing a C file, another outputting from a log, and yet a third stepping through GDB, these three processes may be for completely different projects. For me at least, IDES’s are of the most use when you’re using all their features cohesively on a single task. While this is great when you’re working on that single feature for that huge project or deadline, most of the time your attention is split three ways ten times over. And it’s during this time that a decoupled interface provides the most benefit. 
+
 
 

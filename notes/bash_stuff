@@ -1,0 +1,30 @@
+
+# 26/12/2013 CZ: This line is for 'linuxtrack'
+echo ".bashrc ... adding path to linuxtrack"
+export PATH=${PATH}:/opt/linuxtrack/bin
+
+# 27/04/14 CZ: Set shell editing mode vi style
+echo ".bashrc ... setting shell editing mode vi style"
+set -o vi
+
+# 01/07/2014 CZ: Configuration for virtualenvwrapper
+echo ".bashrc ... configuring virtualenvwrapper"
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+
+# 21/07/2014 CZ: ssht: Use tmux with ssh
+# Will attach to an existing tmux session, create a new
+# one if none exists or start bash if tmux is not available
+echo ".bashrc ... Adding function ssht"
+function ssht(){
+    ssh $* -t 'tmux a || tmux || /bin/bash'
+}
+
+# 06/10/2015 CZ: Experiment with 'vsthost'
+echo "Setting experimental VST_PATH"
+export VST_PATH=/mnt/Sg5Data/data/staging/vst
+
+# 09/10/2014 CZ: VIMINIT for my floating main VIM
+echo " NOT setting VIMINIT to my floating configuration 'bnew' in '_vim'"
+#export VIMINIT='let $MYVIMRC="~/_vim/bnew/.vimrc" | source $MYVIMRC'
+echo
