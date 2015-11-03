@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Reboot helper script for i3: Reboot for upstart-based systems
+
+# (see http:/ninjaducks.in/hacking/gnome-3-to-i-3/
+# Pre-Requisites:
+# 1. Add a line for your user into sudoers (via 'visudo')
+# to allow poweroff via the nedd to provide a password:
+# <username> ALL=(ALL) NOPASSWD: /home/<username>/.i3/poweroff
+# 2. Add the following line to I3's 'config' (choosing key combination of choice):
+# bindsym $mod+Control+x sudo /home/<username>/.i3/poweroff
+
+sudo poweroff

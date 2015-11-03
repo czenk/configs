@@ -1,0 +1,67 @@
+# $ sudo apt-get install i3 i3status i3lock compton nitrogen
+# get Font Awesome and copy it to /usr/share/fonts/font-awesome-x.x.x
+
+### " I changed it to "font pango:Cousine, Awesome 9" instead of "font xft:Cousine, Awesome 9" in i3 config and it works, although I don't know why I couldn't get it to work with xft."
+
+# $ nitrogen /home/syrupnas/pitcures
+
+### Audio-control and backlight-control for debian systems (optional)
+# $ sudo apt-get install pavucontrol xbacklight
+
+# html-color-codes.info
+
+# This script is for systemd
+# $ sudo chmod +x i3exit && mv i3exit /usr/local/sbin
+
+# Other text based applications
+# ranger - a file manager
+# zathura - a pdf reader
+# cmus - a music player
+# Vimperator,Vimium ,VimFx - Firefox plugin for vim-like keyboard navigation
+# Vimium might also be avaiable for chromium
+# SMPlayer - a video player
+
+# Launchers (to check out):
+# - Synapse - installed - in Ubuntu repo
+# - Indicator-Synapse - not available (for Ubuntu 15.10 yet)
+# - rofi - text-based, no dependencies, run,ssh-connections, window switcher (see man page) - very small footprint (dmenu as list)
+# - Mutate - too many dependencies. No package for 15.10 available yet
+# - Albert - installed - ALleinstellungsmerkmale: <Tab> für alternativen
+# (- Launchy?)
+# (Gnome-Do needs 60MB+ dependencies - probably the Gnome Dekstop environment)
+# - j4-dmenu-desktop - a replacement for i3dmenu
+# Extended example for config:
+# bindsym $mod+space exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -fn 'DejaVu Sans-10' -l 20"
+
+# Notification systems and daemons:
+# twmn: https://github.com/sboli/twmn
+
+----
+
+# Window border style: normal: border normal, with window title bar;
+# none: no border or window title bar; 1pixel: 1 pixel border.
+new_window 1pixel
+bindsym $mod+t border normal
+bindsym $mod+y border 1pixel
+bindsym $mod+u border none
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+bindsym l exec --no-startup-id i3exit lock, mode "default"
+bindsym e exec --no-startup-id i3exit logout, mode "default"
+bindsym s exec --no-startup-id i3exit suspend, mode "default"
+bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+bindsym r exec --no-startup-id i3exit reboot, mode "default"
+bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+# back to normal: Enter or Escape
+bindsym Return mode "default"
+bindsym Escape mode "default"
+}
+bindsym $mod+F2 mode "$mode_system"
+
+# sound control
+# https://faq.i3wm.org/question/125/how-to-change-the-systems-volume/?answer=249#post-id-249
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ -q
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- -q
+bindsym XF86AudioMute exec amixer -q set Master toggle
+
+

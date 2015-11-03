@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Reboot helper script for i3: Reboot for upstart-based systems
+
+# Pre-Requisites:
+# 1. Add a line for your user into sudoers (via 'visudo')
+# to allow reboot/shutdown via the nedd to provide a password:
+# <username> ALL=(ALL) NOPASSWD: /home/<username>/.i3/reboot
+# 2. Add the following line to I3's 'config':
+# bindsym $mod+Control+r sudo /home/<username>/.i3/reboot
+
+sudo reboot

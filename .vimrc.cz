@@ -1,0 +1,200 @@
+" Modeline and Intro {
+" vim: set sw=4 et ts=4 sts=4 ai nowrap nojs foldmarker={,} foldlevel=0 foldmethod=marker:
+"
+" 13/10/2015 CZ: My own customisations
+" }
+
+" Formatting {
+
+    set nowrap                      " Do not wrap long lines
+    set autoindent                  " Indent at the same level of the previous line
+    set shiftwidth=4                " Use indents of 4 spaces
+    set expandtab                   " Tabs are spaces, not tabs
+    set tabstop=4                   " An indentation every four columns
+    set softtabstop=4               " Let backspace delete indent
+    set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+    set splitright                  " Puts new vsplit windows to the right of the current
+    set splitbelow                  " Puts new split windows to the bottom of the current
+    "set matchpairs+=<:>             " Match, to be used with %
+    set pastetoggle=<F10>           " pastetoggle (sane indentation on pastes)
+
+" }
+"  Appearance {
+
+    "set background=light
+    colorscheme distinguished
+    set laststatus=2                " Always display the status-line
+    "set listchars=tab:›\ ,trail:•,extends:#,nbsp:.  " Highlight problematic whitespace
+    exec "set listchars=tab:\uBB\uBB,trail:\uB7,extends:#,nbsp:~"
+    set list                                        " ...and switch them on
+    " Visual shifting (does not exit Visual mode)                                                                                                                                                                                        
+    vnoremap < <gv                                                                                                                                                                                                                       
+    vnoremap > >gv  
+    " For when you forget to sudo.. Really Write the file.                                                                                                                                                                               
+    cmap w!! w !sudo tee % >/dev/null  
+
+    " ----- bling/vim-airline settings ----- {
+    
+        "let g:airline_theme = 'powerlineish'                                                                                                                                                                                             
+        " Use the default set of separators with a few customizations                                                                                                                                                                
+        "let g:airline_left_sep='›'  " Slightly fancier than '>'                                                                                                                                                                      
+        "let g:airline_right_sep='‹' " Slightly fancier than '<'  
+        "
+        "  01/10/2015 CZ: Setting patched font for use with gvim:
+        set guifont=Menlo\ for\ Powerline
+
+        " Always show statusbar
+        set laststatus=2
+
+        " Fancy arrow symbols, requires a patched font
+        " To install a patched font, run over to
+        "     https://github.com/abertsch/Menlo-for-Powerline
+        " download all the .ttf files, double-click on them and click "Install"
+        " Finally, uncomment the next line
+        let g:airline_powerline_fonts = 1
+
+        " Show PASTE if in paste mode
+        let g:airline_detect_paste=1
+
+        " Show airline for tabs too
+        let g:airline#extensions#tabline#enabled = 1
+    " }
+    
+    "set showmode                    " Display the current mode
+
+    set cursorline                  " Highlight current line
+
+    "highlight clear SignColumn      " SignColumn should match background for
+                                    " things like vim-gitgutter
+
+    highlight clear LineNr          " Current line number row will have same background color in relative mode.
+                                    " Things like vim-gitgutter will match LineNr highlight
+    "highlight clear CursorLineNr    " Remove highlight color from current line number
+
+    "if has('cmdline_info')
+    "    set ruler                   " Show the ruler
+    "    set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
+    "    set showcmd                 " Show partial commands in status line and
+    "                                " Selected characters/lines in visual mode
+    "endif
+
+    "if has('statusline')
+    "    " Broken down into easily includeable segments
+    "    set statusline=%<%f\                     " Filename
+    "    set statusline+=%w%h%m%r                 " Options
+    "    set statusline+=%{fugitive#statusline()} " Git Hotness
+    "    set statusline+=\ [%{&ff}/%Y]            " Filetype
+    "    set statusline+=\ [%{getcwd()}]          " Current dir
+    "    set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+    "endif
+
+"  }
+
+" Key-bindings {
+
+    " I believe '\' is the default. Too many keys to get too on a german keyboard
+    "let mapleader = ','
+    let mapleader = ' '
+
+
+    " NerdTree - taken from spf13 but using NERDTreetabs plugin as well- review {                                                                                                                                                                                                                         
+        "map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>                                                                                                                                                                                 
+        nmap <silent> <C-e> :NERDTreeTabsToggle<CR>                                                                                                                                                                                 
+        map <leader>e :NERDTreeFind<CR>                                                                                                                                                                                                  
+        nmap <leader>nt :NERDTreeFind<CR>                                                                                                                                                                                                
+                                                                                                                                                                                                                                                 
+        let NERDTreeShowBookmarks=1                                                                                                                                                                                                      
+        "let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']                                                                                                                                       
+        let NERDTreeChDirMode=0                                                                                                                                                                                                          
+        let NERDTreeQuitOnOpen=1                                                                                                                                                                                                         
+        let NERDTreeMouseMode=2                                                                                                                                                                                                          
+        let NERDTreeShowHidden=1                                                                                                                                                                                                         
+        let NERDTreeKeepTreeInNewTab=1                                                                                                                                                                                                   
+        let g:nerdtree_tabs_open_on_gui_startup=0                                                                                                                                                                                        
+        let g:nerdtree_tabs_open_on_console_startup=0
+    " } 
+
+    " Syntastic - Syntax checker {
+        " Channels syntax check through external Syntax checkers
+        " See https://github.com/scrooloose/syntastic
+
+        " Initial settings recommended by the author
+        set statusline+=%#warningmsg#
+        set statusline+=%{SyntasticStatuslineFlag()}
+        set statusline+=%*
+
+        let g:syntastic_always_populate_loc_list = 1
+        let g:syntastic_auto_loc_list = 1
+        let g:syntastic_check_on_open = 1
+        let g:syntastic_check_on_wq = 0
+
+        " Settings from http://blog.jez.io/2015/03/03/vim-as-an-ide/
+        "let g:syntastic_error_symbol = '✘'
+        "let g:syntastic_warning_symbol = "▲"
+        "augroup mySyntastic
+        "   au!
+        "   au FileType tex let b:syntastic_mode = "passive"
+        "augroup END
+
+    " }
+
+    " --- Windows-/Tabs-/Pane Navigation ---
+    "  Use <Shift>-h/l to navigate tabs
+    nnoremap <S-H> gT
+    nnoremap <S-L> gt
+    " Create new Tab
+    nnoremap <silent> <C-w>t :tabnew<CR>
+    " Split pane - defaults are <CTRL-w> n|v
+    nnoremap <silent> <C-w>h :split<CR>
+
+    " { VIM/Tmux-Integration
+    
+        " See: https://github.com/christoomey/vim-tmux-navigator
+        
+        " --- Navigate between Panes (splits)
+        " The default to move between Vim splits is 
+        " <CTRL-W> h|j|k|l
+        " The Plugin introduces an additional default mapping
+        " to allow <CTRL> h|j|k|l for Tmux and Vim
+        " Use below lines to overwrite:
+        "
+        " let g:tmux_navigator_no_mappings = 1
+        " nnoremap <silent> {Left-mapping} :TmuxNavigateLeft<cr>
+        " nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
+        " nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
+        " nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
+        " nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+
+        " --- Resize Panes (splits) ---
+        " Utilising the plugin I added resizing of splits
+        " via <CTRL>-<Arrow Key>
+        " To avoid termcap-issues yet have consistent
+        " behaviour between pure Vim- and Tmux/Vim-sessions 
+        " I introduce
+        " ---- for pure Vim (using recursive mapping)
+        nmap <C-Up> <C-n>    "Increase horizontal split
+        nmap <C-Down> <C-m>
+        nmap <C-Left> <C-@>
+        nmap <C-Right> <C-_>    "Increase vertical split
+        " ---- Recursion and for control from my tmux
+        nnoremap <C-n> <C-w>+
+        nnoremap <C-m> <C-w>-
+        nnoremap <C-@> <C-w><    "Increase horizontal split
+        nnoremap <C-_> <C-w>>    "Increase vertical split
+
+    " }
+
+    " --- Using <ALT>
+    if has('unix')
+        nnoremap <silent> k <C-w>+   " Increase horizontal split
+        nnoremap <silent> j <C-w>-   " Decrease horizontal split
+        nnoremap <silent> l <C-w><   " Decrease vertical split
+        nnoremap <silent> h <C-w>>   " Uncrease vertical split
+    else
+        nnoremap <silent> <M-k> <C-w>+   " Increase horizontal split
+        nnoremap <silent> <M-j> <C-w>-   " Decrease horizontal split
+        nnoremap <silent> <M-l> <C-w><   " Decrease vertical split
+        nnoremap <silent> <M-h> <C-w>>   " Uncrease vertical split
+    endif
+    
+" }
