@@ -97,12 +97,14 @@
     let mapleader = ' '
 
 
-    " NerdTree - taken from spf13 but using NERDTreetabs plugin as well- review {                                                                                                                                                                                                                         
+    " NerdTree - taken from spf13 + addition(s) +  using NERDTreetabs plugin as well- review {                                                                                                                                                                                                                         
         "map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>                                                                                                                                                                                 
         nmap <silent> <C-e> :NERDTreeTabsToggle<CR>                                                                                                                                                                                 
         map <leader>e :NERDTreeFind<CR>                                                                                                                                                                                                  
         nmap <leader>nt :NERDTreeFind<CR>                                                                                                                                                                                                
-                                                                                                                                                                                                                                                 
+        " CZ: 'nt' in command mode -> provide new path to NERDTree
+        cmap nt NERDTree 
+
         let NERDTreeShowBookmarks=1                                                                                                                                                                                                      
         "let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']                                                                                                                                       
         let NERDTreeChDirMode=0                                                                                                                                                                                                          

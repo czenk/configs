@@ -84,6 +84,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
+# CZ: Had to change 'split h' to $mod+c in Manjaro
 bindsym $mod+b split h
 
 # split in vertical orientation
