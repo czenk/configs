@@ -22,6 +22,7 @@
     " Gotta be first
     set nocompatible
 
+    "
     " 09/10/2015 CZ: Introducing $VIMHOME to deal with custom vim path {
     " To run vim from a custom directory set the VIMINIT environment variable.
     " Example:
@@ -64,6 +65,19 @@ syntax on
     " source: https://github.com/VundleVim/Vundle.vim
     " set nocompatible
     filetype off
+
+    " Check if we have Vundle - and try to fetch it if we don't
+    " TODO: Add error handling and verify against hacks for custom path
+    let hasVundle=1
+    let vundle_readme=expand( $VIMHOME . "/.vim/bundle/Vundle.vim/README.md")
+    if !filereadable(vundle_readme)
+        echo "Missing Vundle. Will try to clone it from github..."
+        echo ""
+        silent !mkdir -p $VIMHOME/.vim/bundle
+        silent !git clone https://github.com/VundleVim/Vundle.vim.git $VIMHOME/.vim/bundle/Vundle.vim
+        let hasVundle=0
+    endif
+
     set rtp+=$VIMHOME/.vim/bundle/Vundle.vim
 
 "" ---> Funtkionier nicht. Fixen!
@@ -81,8 +95,18 @@ syntax on
     Plugin 'christoomey/vim-tmux-navigator'
     Plugin 'scrooloose/syntastic'               " Syntax checker - see
                                                 " https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers
+    Plugin 'nanotech/jellybeans.vim'
 
     call vundle#end()
+    " If this is a new Vundle-install make sure all Plugins are installed as
+    " well
+    if hasVundle == 0
+        echo "Executing PluginInstall..."
+        echo ""
+        :silent! PluginInstall
+        :q
+    endif
+
     filetype plugin indent on
     " To ignore plugin indent changes, instead use:
     " filetype plugin on
