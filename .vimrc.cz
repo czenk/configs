@@ -122,24 +122,24 @@
     let mapleader = ' '
 
 
-    " NerdTree - taken from spf13 + addition(s) + using NERDTreetabs plugin as well- review {                                                                                                                                                                                                                         
-        "map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>                                                                                                                                                                                 
-        nmap <silent> <C-e> :NERDTreeTabsToggle<CR>                                                                                                                                                                                 
-        map <leader>e :NERDTreeFind<CR>                                                                                                                                                                                                  
-        nmap <leader>nt :NERDTreeFind<CR>                                                                                                                                                                                                
+    " NerdTree - taken from spf13 + addition(s) + using NERDTreetabs plugin as well- review {
+        "map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+        nmap <silent> <C-e> :NERDTreeTabsToggle<CR>
+        map <leader>e :NERDTreeFind<CR>
+        nmap <leader>nt :NERDTreeFind<CR>
         " CZ: 'nt' in command mode -> provide new path to NERDTree
-        cmap nt NERDTree 
-                                                                                                                                                                                                                                                 
-        let NERDTreeShowBookmarks=1                                                                                                                                                                                                      
-        "let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']                                                                                                                                       
-        let NERDTreeChDirMode=0                                                                                                                                                                                                          
-        let NERDTreeQuitOnOpen=1                                                                                                                                                                                                         
-        let NERDTreeMouseMode=2                                                                                                                                                                                                          
-        let NERDTreeShowHidden=1                                                                                                                                                                                                         
-        let NERDTreeKeepTreeInNewTab=1                                                                                                                                                                                                   
-        let g:nerdtree_tabs_open_on_gui_startup=0                                                                                                                                                                                        
+        cnoreabbrev nt NERDTree
+
+        let NERDTreeShowBookmarks=1
+        "let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+        let NERDTreeChDirMode=0
+        let NERDTreeQuitOnOpen=1
+        let NERDTreeMouseMode=2
+        let NERDTreeShowHidden=1
+        let NERDTreeKeepTreeInNewTab=1
+        let g:nerdtree_tabs_open_on_gui_startup=0
         let g:nerdtree_tabs_open_on_console_startup=0
-    " } 
+    " }
 
     " Syntastic - Syntax checker {
         " Channels syntax check through external Syntax checkers
