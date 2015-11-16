@@ -5,12 +5,41 @@
 # this file and re-run i3-config-wizard(1).
 #
 
+# CZ: This is the 2nd blueish version for use with Xfce on Ubuntu
+
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 ### CZ: I use the Windows key
 set $mod Mod4
+
+# CZ: Set vars for workspace-screen assignment
+# dsp0 = primary screen
+set $dsp1 "DVI-I-1"
+set $dsp0 "VGA-1"
+# CZ: The workspaces
+set $wsp1 "1"
+set $wsp2 "2  Email"
+set $wsp3 "3  Remote"
+set $wsp4 "4 " 
+set $wsp5 "5  Hugo"
+set $wsp6 "6"
+set $wsp7 "7"
+set $wsp8 "8"
+set $wsp9 "9"
+set $wsp10 "10"
+# CZ: Assign workspaces to displays
+workspace $wsp1 output $dsp0
+workspace $wsp2 output $dsp1
+workspace $wsp3 output $dsp0
+workspace $wsp4 output $dsp0
+workspace $wsp5 output $dsp0
+workspace $wsp6 output $dsp0
+workspace $wsp7 output $dsp0
+workspace $wsp8 output $dsp0
+workspace $wsp9 output $dsp0
+workspace $wsp10 output $dsp0
 
 # https://github.com/Airblader/i3 says border pixel should be 0
 # for gaps to work properly
@@ -34,7 +63,7 @@ font pango:monospace 9
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+#font pango:DejaVu Sans Mono 9
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -47,13 +76,15 @@ font pango:monospace 9
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec xfce4-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+#bindsym $mod+d exec dmenu_run -fn "-xos4-terminus-medium-r-*-*-14-*"
+bindsym $mod+F3 exec dmenu_run -fn "-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-14"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -84,11 +115,14 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-# CZ: Had to change 'split h' to $mod+c in Manjaro
-bindsym $mod+b split h
-
+bindsym $mod+c split h;exec notify-send 'i3: tile horizontally'
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+v split v;exec notify-send 'i3: tile vertically'
+
+# workspace back and forth (with/without active container)
+workspace_auto_back_and_forth yes
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Shift+Tab move container to workspace back_and_forth; workspace back_and_forth
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -111,29 +145,30 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1:
-bindsym $mod+2 workspace 2:
-bindsym $mod+3 workspace 3
+bindsym $mod+1 workspace $wsp1
+bindsym $mod+2 workspace $wsp2
+bindsym $mod+3 workspace $wsp3
 # CZ: Example - automatically start 'thunar' when workspace 4 is activated
-bindsym $mod+4 workspace 4: ; exec thunar
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+#bindsym $mod+4 workspace 4: ; exec thunar
+bindsym $mod+4 workspace $wsp4
+bindsym $mod+5 workspace $wsp5
+bindsym $mod+6 workspace $wsp6
+bindsym $mod+7 workspace $wsp7
+bindsym $mod+8 workspace $wsp8
+bindsym $mod+9 workspace $wsp9
+bindsym $mod+0 workspace $wsp10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace $wsp1
+bindsym $mod+Shift+2 move container to workspace $wsp2
+bindsym $mod+Shift+3 move container to workspace $wsp3
+bindsym $mod+Shift+4 move container to workspace $wsp4
+bindsym $mod+Shift+5 move container to workspace $wsp5
+bindsym $mod+Shift+6 move container to workspace $wsp6
+bindsym $mod+Shift+7 move container to workspace $wsp7
+bindsym $mod+Shift+8 move container to workspace $wsp8
+bindsym $mod+Shift+9 move container to workspace $wsp9
+bindsym $mod+Shift+0 move container to workspace $wsp10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -206,10 +241,18 @@ bindsym $mod+F2 mode "$mode_system"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+#bar {
+#    position top
+#    tray_output none
+#    mode invisible
+#    status_command exec /usr/bin/xfce4-panel
+#}
+
 bar {
-    position top
-	status_command /home/syrupnas/.i3/conkyi3
-        #status_command i3status
+    position bottom
+	#status_command /home/syrupnas/.i3/conkyi3
+    tray_output none
+    status_command i3status
 
 	### CZ: Setting FontAwesome for status bar
 	#font xtf:Cousine, FontAwesome 9
@@ -233,12 +276,43 @@ bar {
 	}
 }
 
+### *** CZ: Xfce specific stuff ***
+# use 'xprop' or 'xwinfo' to get window information
+for_window [class="Xfce4-panel"] floating enable
+# Xfce app finder (default: <ALT>-<F2> | <ALT>-<F3>)
+for_window [class="Xfrun4"] floating enable
+for_window [class="Xfce4-appfinder"] floating enable
+
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Xfce4-notifyd"] floating enable;border normal;focus mode_toggle
+for_window [class="Software-properties-gtk"] floating enable
+for_window [class="Software-center"] floating enable
+# shutdown menu
+bindsym $mod+Shift+p exec xfce4-session-logout
+# xfce settings
+bindsym $mod+Shift+s exec xfce4-settings-manager
+
+#CZ: Calling the panel this way seems to prevent it from disappaering
+#exec /usr/bin/xfsettingsd
+#exec /usr/bin/xfce4-session
+#exec /usr/bin/xfce4-panel --disable-wm-check
+#exec /usr/bin/xfce4-panel --class=XPanel --screen= --display= --disable-wm-check
+# CZ: Xfce-setup (an earlier version):
+#   though I lost display of the Xfce-panel when switchting desktops
+# 1. Enable autostart of i3 in Xfce's "Session and Startup"
+# 1. Disable xfwm4, xfdesktop and xfce4-panel in Xfce's session-manager
+# 3. Start xfce-panel from i3:
+#exec --no-startup-id xfce4-panel --disable-wm-check
+
+### *** ***
+
 ### CZ: Make guake "floating"
 # use 'xprop' or 'xwinfo' to get window information
+for_window [class="Update-manager"] floating enable
 for_window [class="Main.py" instance="guake"] floating enable
-#for_window [class="Skype" instance="skype"] floating enable
-#for_window [class="VirtualBox" instance="Qt-subapplication"] floating enable
-#for_window [class="Xfce4-notifyd"] floating enable
+for_window [class="Skype" instance="skype"] floating enable
+for_window [class="VirtualBox" instance="Qt-subapplication"] floating enable
+for_window [class="Remmina"] floating enable
 
 ### CZ: Configuring the scratchpad
 # Source: http://lpil.uk/blog/i3wm-opening-applications-in-the-scratchpad/
@@ -256,21 +330,25 @@ bindsym $mod+Shift+n mark nscratch, move scratchpad
 bindsym $mod+n [con_mark="nscratch"] scratchpad show
 
 #Start-up apps
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 ### CZ: Set the wallpaper with nitrogen
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id /usr/bin/nm-applet
+#exec --no-startup-id /usr/bin/nm-applet
 #exec --no-startup-id pulseaudio
-exec --no-startup-id volumeicon
+#exec --no-startup-id volumeicon
 #exec --no-startup-id owncloud
+
+# CZ: Compton is a stand-alone composite manager
 exec --no-startup-id compton -b
-exec --no-startup-id sleep 3 && guake
+#exec --no-startup-id sleep 3 && guake
 # Albert is an Omnilauncher in it's early stages
 # See https://github.com/ManuelSchneid3r/albert
 # and https://www.maketecheasier.com/albert-launcher-linux/
-exec --no-startup-id albert        # installed via apt-get from ppa:flexiondotorg/albert
+#exec --no-startup-id albert        # installed via apt-get from ppa:flexiondotorg/albert
+
 # Rofi is a very small and fast Desktop launcher/Window Switcher/SSH launcher
 # See http://tuxdiary.com/2015/10/26/rofi/
-exec --no-startup-id rofi -key-run F3 -key-window F5 -key-ssh F6
+exec --no-startup-id rofi -key-run $mod+d -key-window $mod+F4 -key-ssh $mod+F5
 #exec --no-startup-id i3-msg 'mark nscratch; exec /usr/bin/gedit ~/todo; [con_mark="nscratch"] scratchpad show'
 
 #CZ: Example for auto-starting applications (remove whitespace between globe and ';')
